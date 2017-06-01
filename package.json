@@ -1,0 +1,15 @@
+{
+  "name": "economist-news-quiz",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/payers1/economist-news-quiz.git",
+  "author": "Phill Ayers <phillip.ayers@sharpnotions.com>",
+  "license": "MIT",
+  "scripts": {
+    "scrape": "node scraper"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "x-ray": "^2.3.2"
+  }
+}
