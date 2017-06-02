@@ -6,9 +6,12 @@
   "author": "Phill Ayers <phillip.ayers@sharpnotions.com>",
   "license": "MIT",
   "scripts": {
-    "scrape": "node scraper"
+    "scrape": "node scraper",
+    "deploy-cloud-fn": "gcloud beta functions deploy helloGET --local-path cloud_functions --stage-bucket graphql-dev.appspot.com --trigger-http"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
+    "express": "^4.15.3",
     "lodash": "^4.17.4",
     "x-ray": "^2.3.2"
   }
