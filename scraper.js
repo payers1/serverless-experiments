@@ -38,7 +38,7 @@ function scrapeForQuestions() {
 
       const obj = _.mapKeys(lines, ({id}) => id);
 
-      fs.writeFileSync(__dirname + '/questions.js', JSON.stringify(obj, null, 2));
+      fs.writeFileSync(__dirname + '/questions.json', JSON.stringify(obj, null, 2));
     }
   });
 }
