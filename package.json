@@ -6,6 +6,8 @@
   "author": "Phill Ayers <phillip.ayers@sharpnotions.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node server.js",
+    "start:dev": "NODE_ENV=development supervisor --no-restart-on error -i node_modules server.js",
     "scrape": "node scraper"
   },
   "engines": {
@@ -16,6 +18,7 @@
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "make-runnable": "^1.1.1",
+    "supervisor": "^0.12.0",
     "x-ray": "^2.3.2"
   }
 }
