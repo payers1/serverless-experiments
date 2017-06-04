@@ -58,3 +58,4 @@ typings/
 .env
 
 questions.js
+questions.json
