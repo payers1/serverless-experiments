@@ -1,5 +1,6 @@
 const app  = require('express')();
 const PORT = process.env.PORT || 3000;
+const _ = require('lodash');
 const getRandomQuestion = () => {
   const questions = require('./questions.json');
   const questionKeys = _.keys(questions);
