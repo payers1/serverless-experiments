@@ -1,3 +1,6 @@
+const transform = require('camaro')
+const rp = require('request-promise');
+
 async function checkAnswer(questionId, guess) {
   const url = 'http://economistsquares.economist.com/HighTrafficAPI';
   const opts = {
@@ -8,12 +11,16 @@ async function checkAnswer(questionId, guess) {
     }
   };
   const response = await rp.get(url, opts);
-  const { XML } = await parseXML(response);
-  return XML.Correct.includes('YES');
+  const template = {
+    correct: '//Correct'
+  }
+  const {correct} = transform(response, template);
+  return correct === 'YES';
 }
 
-module.exports = (req, res) => {
-  const questionId = req.body.questionId;
-  const guess = req.body.guess;
-  const correct = checkAnswer(questionId, guess);
+module.exports = async (req, res) => {
+  const questionId = req.query.questionId;
+  const guess = req.query.guess;
+  const correct = await checkAnswer(questionId, guess);
+  res.send(correct);
 }
