@@ -11,7 +11,7 @@
     "scrape": "node scraper"
   },
   "engines": {
-    "node": "7.x.x"
+    "node": "8.x.x"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
