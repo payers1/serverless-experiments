@@ -1,4 +1,4 @@
-// const transform = require('camaro')
+const transform = require('camaro')
 const rp = require('request-promise');
 
 async function checkAnswer(questionId, guess) {
@@ -14,9 +14,8 @@ async function checkAnswer(questionId, guess) {
   const template = {
     correct: '//Correct'
   }
-  return true;
-  // const {correct} = transform(response, template);
-  // return correct === 'YES';
+  const { correct } = transform(response, template);
+  return correct === 'YES';
 }
 
 module.exports = async (req, res) => {

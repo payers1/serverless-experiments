@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.0",
-    "camaro": "^1.1.0",
+    "camaro": "1.1.6",
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "make-runnable": "^1.1.1",
