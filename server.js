@@ -1,18 +1,11 @@
-const app  = require('express')();
-const PORT = process.env.PORT || 3000;
+const serverless  = require('serverless-http');
+const bodyParser  = require('body-parser');
+const app         = require('express')();
+const questions   = require('./handlers/questions')
 
-const {
-  checkDate,
-  getQuestions,
-  checkAnswer
-} = require('./handlers');
-
+app.use(bodyParser.json({ strict: false }));
 app.get('/', (req, res) => res.send('it works'))
+app.get('/questions/:questionId', questions.getQuestion)
+app.post('/questions', questions.saveQuestion)
 
-app.get('/check-date', checkDate);
-
-app.get('/check-answer', checkAnswer);
-
-app.get('/questions', getQuestions);
-
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+module.exports.handler = serverless(app)
