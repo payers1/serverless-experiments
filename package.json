@@ -6,9 +6,7 @@
   "author": "Phill Ayers <phillip.ayers@sharpnotions.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "NODE_ENV=development supervisor --no-restart-on error -i node_modules server.js",
-    "scrape": "node scraper"
+    "start:dev": "NODE_ENV=development supervisor --no-restart-on error -i node_modules server.js"
   },
   "dependencies": {
     "aws-sdk": "^2.268.1",
