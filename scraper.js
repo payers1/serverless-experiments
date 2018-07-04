@@ -52,6 +52,5 @@ async function scrapeForQuestionsDate() {
 }
 
 module.exports = {
-  scrapeForQuestions,
-  scrapeForQuestionsDate
+  scrapeForQuestions
 }
