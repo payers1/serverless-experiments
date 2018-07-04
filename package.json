@@ -11,14 +11,23 @@
     "scrape": "node scraper"
   },
   "dependencies": {
+    "aws-sdk": "^2.268.1",
     "bluebird": "^3.5.0",
-    "camaro": "1.1.6",
+    "body-parser": "^1.18.3",
+    "camaro": "3.0.6",
     "express": "^4.15.3",
     "lodash": "^4.17.4",
     "make-runnable": "^1.1.1",
     "moment": "^2.18.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
+    "serverless-http": "^1.6.0",
     "x-ray": "^2.3.2"
+  },
+  "devDependencies": {
+    "prettier": "^1.13.7",
+    "serverless-dynamodb-local": "^0.2.30",
+    "serverless-offline": "^3.25.5",
+    "supervisor": "^0.12.0"
   }
 }
