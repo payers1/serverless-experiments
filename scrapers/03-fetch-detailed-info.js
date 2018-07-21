@@ -4,13 +4,11 @@ const cheerio = require('cheerio')
 
 async function getDetailedInfo(pId = '1954138') {
   const url = `https://www.finewineandgoodspirits.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10051&storeId=10051&productId=${pId}&langId=-1`
-  const d = await fetch(url, {
-    method: 'GET'
-  }).catch(console.error)
+  const d = await fetch(url).catch(console.error)
   if (!d) {
     return {}
   }
-  const text = await d.text().catch(console.error)
+  const text = await d.text()
   const $ = cheerio.load(text)
   const productName = $('#name_ga').val()
   const img = $(
@@ -64,5 +62,3 @@ async function getDetailedInfo(pId = '1954138') {
 }
 
 module.exports = getDetailedInfo
-
-getDetailedInfo()
