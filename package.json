@@ -6,26 +6,26 @@
   "author": "Phill Ayers <phillip.ayers@sharpnotions.com>",
   "license": "MIT",
   "scripts": {
-    "start:dev": "NODE_ENV=development supervisor --no-restart-on error -i node_modules server.js"
+    "start:dev": "sls offline start"
   },
   "dependencies": {
     "aws-sdk": "^2.268.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.18.3",
-    "camaro": "3.0.6",
+    "cheerio": "^1.0.0-rc.2",
     "express": "^4.15.3",
-    "lodash": "^4.17.4",
-    "make-runnable": "^1.1.1",
-    "moment": "^2.18.1",
+    "lodash": "^4.17.10",
+    "node-fetch": "^2.1.2",
+    "puppeteer": "^1.6.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "serverless-http": "^1.6.0",
-    "x-ray": "^2.3.2"
+    "x-ray": "^2.3.2",
+    "xml-js": "^1.6.7"
   },
   "devDependencies": {
     "prettier": "^1.13.7",
     "serverless-dynamodb-local": "^0.2.30",
-    "serverless-offline": "^3.25.5",
-    "supervisor": "^0.12.0"
+    "serverless-offline": "^3.25.6"
   }
 }
