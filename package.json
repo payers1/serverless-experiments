@@ -6,20 +6,20 @@
   "author": "Phill Ayers <phillip.ayers@sharpnotions.com>",
   "license": "MIT",
   "scripts": {
-    "start:dev": "sls offline start"
+    "start:dev": "AWS_PROFILE=serverless sls offline start"
   },
   "dependencies": {
+    "apollo-server-lambda": "^2.0.0",
     "aws-sdk": "^2.268.1",
     "bluebird": "^3.5.0",
-    "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
-    "express": "^4.15.3",
+    "elasticsearch": "^15.1.1",
+    "graphql": "^0.13.2",
+    "graphql-tools": "^3.0.5",
     "lodash": "^4.17.10",
     "node-fetch": "^2.1.2",
     "request": "^2.81.0",
-    "request-promise": "^4.2.1",
-    "serverless-http": "^1.6.0",
-    "x-ray": "^2.3.2"
+    "request-promise": "^4.2.1"
   },
   "devDependencies": {
     "prettier": "^1.13.7",

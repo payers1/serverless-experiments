@@ -1,8 +1,20 @@
-const serverless = require('serverless-http')
-const bodyParser = require('body-parser')
-const app = require('express')()
+const { ApolloServer } = require('apollo-server-lambda')
+const { typeDefs, resolvers } = require('./schema')
 
-app.use(bodyParser.json({ strict: false }))
-app.get('/', (req, res) => res.send('it works'))
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: {
+    settings: {
+      'editor.theme': 'light',
+      'editor.cursorShape': 'block'
+    }
+  }
+})
 
-module.exports.handler = serverless(app)
+exports.graphqlHandler = server.createHandler({
+  cors: {
+    origin: '*',
+    credentials: true
+  }
+})

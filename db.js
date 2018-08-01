@@ -8,4 +8,4 @@ const dbConfig =
       }
     : undefined
 
-module.exports = new AWS.DynamoDB.DocumentClient()
+module.exports = new AWS.DynamoDB.DocumentClient({ region: 'us-east-1' })
