@@ -1,14 +1,11 @@
 service: economist-news-quiz
 
 custom:
-  tableName: 'questions-table-${self:provider.stage}'
+  bucket: 'wine-bucket-serverless-dev-2'
+  tableName: 'wine-table-${self:provider.stage}'
   dynamodb:
     start:
       migrate: true
-
-plugins:
-  - serverless-dynamodb-local
-  - serverless-offline
 
 provider:
   name: aws
@@ -16,6 +13,9 @@ provider:
   stage: dev
   profile: serverless
   region: us-east-1
+  environment:
+    STAGE: ${self:provider.stage}
+    BUCKET: ${self:custom.bucket}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -26,16 +26,12 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource:
-        - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
-  environment:
-    QUESTIONS_TABLE: ${self:custom.tableName}
-
+        - { "Fn::GetAtt": ["WineDynamoDBTable", "Arn" ] }
 
 functions:
   app:
     handler: server.handler
     events:
-      - http: ANY /
       - http: 'ANY {proxy+}'
   graphql:
     handler: graphql.graphqlHandler
@@ -43,31 +39,22 @@ functions:
       - http:
           path: 'graphql'
           method: any
-          cors:
-            origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-            allowCredentials: false
+          cors: true
 
 resources:
   Resources:
-    UsersDynamoDBTable:
+    WineDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: questionId
+            AttributeName: productId
             AttributeType: S
         KeySchema:
           -
-            AttributeName: questionId
+            AttributeName: productId
             KeyType: HASH
         ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+          ReadCapacityUnits: 4
+          WriteCapacityUnits: 4
         TableName: ${self:custom.tableName}
