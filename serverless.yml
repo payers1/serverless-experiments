@@ -37,6 +37,22 @@ functions:
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
+  graphql:
+    handler: graphql.graphqlHandler
+    events:
+      - http:
+          path: 'graphql'
+          method: any
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
 
 resources:
   Resources:

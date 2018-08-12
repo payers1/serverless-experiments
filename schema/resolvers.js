@@ -16,18 +16,46 @@ async function getItemByProductId(productId) {
 const resolvers = {
   Query: {
     wines: async (root, args, context, info) => {
-      const filterExpression = args.tag
-        ? 'price between :minprice and :maxprice and tag = :tag'
-        : 'price between :minprice and :maxprice'
-      const tagArgs = args.tag ? { ':tag': args.tag } : {}
+      let FilterExpression = 'price between :minprice and :maxprice'
+      const ExpressionAttributeValues = {
+        ':minprice': args.minprice || 0.0,
+        ':maxprice': args.maxprice || 1000.0
+      }
+      const categoryId = args.category_id
+      switch (categoryId) {
+        case 'all':
+          break
+        case 'chairmans':
+          FilterExpression = `${FilterExpression} and tag = :tag`
+          ExpressionAttributeValues[':tag'] = 'Chairmans Selection'
+          break
+        case 'top_rated':
+          FilterExpression = `${FilterExpression} and tag = :tag`
+          ExpressionAttributeValues[':tag'] = 'Top Rated'
+          break
+        case 'starred':
+          FilterExpression = `${FilterExpression} and starred = :starred`
+          ExpressionAttributeValues[':starred'] = true
+          break
+        case 'red':
+          FilterExpression = `${FilterExpression} and category_id = :category`
+          ExpressionAttributeValues[':category'] = '1333936'
+          break
+        case 'sparkling':
+          FilterExpression = `${FilterExpression} and category_id = :category`
+          ExpressionAttributeValues[':category'] = '1333982'
+          break
+        case 'rose':
+          FilterExpression = `${FilterExpression} and category_id = :category`
+          ExpressionAttributeValues[':category'] = '1333977'
+          break
+        default:
+      }
       const params = {
         TableName: WINE_TABLE || 'wine-table-dev',
-        FilterExpression: filterExpression,
-        ExpressionAttributeValues: {
-          ':minprice': args.minprice || 0.0,
-          ':maxprice': args.maxprice || 100.0,
-          ...tagArgs
-        }
+        FilterExpression,
+        ExpressionAttributeValues,
+        Limit: args.limit || 0
       }
       const { Items } = await docClient.scan(params).promise()
       return _.sortBy(Items, ['price'])
@@ -46,6 +74,10 @@ const resolvers = {
           description: {
             Action: 'PUT',
             Value: updateParams.description
+          },
+          starred: {
+            Action: 'PUT',
+            Value: updateParams.starred
           }
         },
         ReturnValues: 'ALL_NEW'
