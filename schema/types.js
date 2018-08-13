@@ -14,10 +14,17 @@ const typeDefs = `
     img: String
     ratings: [String]
     starred: Boolean
+    lastEvaluatedKey: String
   }
 
   type Query {
-    wines(minprice: Float, maxprice: Float, limit: Int, category_id: String!): [Wine]
+    wines(
+      minprice: Float,
+      maxprice: Float,
+      limit: Int,
+      category_id: String!,
+      starting_at: String
+    ): [Wine]
   }
 
   type Mutation {

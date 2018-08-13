@@ -54,11 +54,23 @@ const resolvers = {
       const params = {
         TableName: WINE_TABLE || 'wine-table-dev',
         FilterExpression,
-        ExpressionAttributeValues,
-        Limit: args.limit || 0
+        ExpressionAttributeValues
       }
-      const { Items } = await docClient.scan(params).promise()
-      return _.sortBy(Items, ['price'])
+      if (args.starting_at) {
+        params.ExclusiveStartKey = {
+          productId: args.starting_at
+        }
+      }
+      if (args.limit) {
+        params.Limit = args.limit
+      }
+      const results = await docClient.scan(params).promise()
+      const { Items } = results
+      const sorted = _.sortBy(Items, ['price']).map(item => {
+        item.lastEvaluatedKey = _.get(results, 'LastEvaluatedKey.productId')
+        return item
+      })
+      return sorted
     }
   },
   Mutation: {
