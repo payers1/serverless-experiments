@@ -27,6 +27,12 @@ provider:
         - dynamodb:DeleteItem
       Resource:
         - { "Fn::GetAtt": ["WineDynamoDBTable", "Arn" ] }
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+      Resource: "arn:aws:dynamodb:${self:provider.region}:676718483588:table/wine-table-dev/index/*"
+
 
 functions:
   app:
@@ -50,10 +56,39 @@ resources:
           -
             AttributeName: productId
             AttributeType: S
+          -
+            AttributeName: tag
+            AttributeType: S
+          -
+            AttributeName: category_id
+            AttributeType: S
         KeySchema:
           -
             AttributeName: productId
             KeyType: HASH
+        GlobalSecondaryIndexes:
+          -
+            IndexName: categoryIndex
+            KeySchema:
+              -
+                AttributeName: category_id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 2
+              WriteCapacityUnits: 2
+          -
+            IndexName: tagIndex
+            KeySchema:
+              -
+                AttributeName: tag
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 2
+              WriteCapacityUnits: 2
         ProvisionedThroughput:
           ReadCapacityUnits: 4
           WriteCapacityUnits: 4
