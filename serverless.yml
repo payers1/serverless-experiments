@@ -1,5 +1,8 @@
 service: economist-news-quiz
 
+plugins:
+  - serverless-offline
+
 custom:
   bucket: 'wine-bucket-serverless-dev-2'
   tableName: 'wine-table-${self:provider.stage}'
