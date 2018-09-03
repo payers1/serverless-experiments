@@ -14,7 +14,6 @@ const typeDefs = `
     img: String
     ratings: [String]
     starred: Boolean
-    lastEvaluatedKey: String
   }
 
   type Query {
